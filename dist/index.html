@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./style.css" />
+        <script src="./js/script.js" defer></script>
+        <title>Document</title>
+    </head>
+
+    <body>
+        <div id="main">
+            <div class="form__wrapper">
+                <form class="form">
+                    <h1 class="form__title">Задача</h1>
+
+                    <div class="form__group">
+                        <input class="form__input-title" />
+                        <label class="form__label">Title</label>
+                    </div>
+                    <div class="form__group">
+                        <input class="form__input-desc" />
+                        <label class="form__label">Description</label>
+                    </div>
+                    <div class="form__group">
+                        <label class="form__select">Status</label>
+                        <select class="form__group-wrapper1">
+                            <option value="1" selected>Todo</option>
+                            <option value="2">In progress</option>
+                            <option value="3">Done</option>
+                        </select>
+                    </div>
+                    <div class="form__group">
+                        <label class="form__select">Priority</label>
+                        <select class="form__group-wrapper2">
+                            <option value="1">Low</option>
+                            <option value="2" selected>Medium</option>
+                            <option value="3">High</option>
+                        </select>
+                    </div>
+
+                    <button class="form__button">Add</button>
+                </form>
+            </div>
+
+            <div id="cards">
+                <div class="card">
+                    <div class="card__container">
+                        <h1 class="card__title">Title</h1>
+                        <div class="card__priority">
+                            <select class="card__priority-select">
+                                <option value="1">Low</option>
+                                <option value="2">Medium</option>
+                                <option value="3">High</option>
+                            </select>
+                        </div>
+                        <div class="card__status">
+                            <select class="card__status-select">
+                                <option value="1">Todo</option>
+                                <option value="2">In progress</option>
+                                <option value="3">Done</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <p>Curabitur quis felis tempor</p>
+                    </div>
+                    <div class="controls">
+                        <button class="controls__edit">Edit</button>
+                        <button class="controls__delete">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
