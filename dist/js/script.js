@@ -4,52 +4,43 @@ function loadData() {
 
 let todoItems = [];
 
-
-
-
-
 const titleInput = document.querySelector(`.form__input-title`);
 const descInput = document.querySelector(`.form__input-desc`);
 const statusInput = document.querySelector(`.form__group-wrapper1`);
 const priorInput = document.querySelector(`.form__group-wrapper2`);
-
-const cardStatus = document.querySelector(`.card__status-select`);
-const cardPriority = document.querySelector(`.card__priority-select`);
-
-
-
+const cardContainer = document.querySelector(`.card__container`);
 
 const addBtn = document.querySelector(`.form__button`);
-const sb = document.querySelector(`.form__group-wrapper1`);
 let newObj;
 addBtn.onclick = (e) => {
-    e.preventDefault();
     if (titleInput.value == ``) {
-        alert(`Заполните поле Title`)
+        alert(`Заполните поле Title`);
+        return;
     }
     if (descInput.value == ``) {
-        alert(`Заполните поле Description`)
+        alert(`Заполните поле Description`);
+        return;
     }
-    newObj = {title: titleInput.value, description: descInput.value, status: +statusInput.value, priority: +priorInput.value};
+    newObj = {
+        title: titleInput.value,
+        description: descInput.value,
+        status: +statusInput.options.selectedIndex,
+        priority: +priorInput.options.selectedIndex,
+    };
     todoItems.push(newObj);
     localStorage.setItem("todoItems", JSON.stringify(todoItems));
-}
-
+};
 
 if (!localStorage.getItem("todoItems")) {
     loadData().then((items) => {
         todoItems = items;
         console.log(todoItems);
         localStorage.setItem("todoItems", JSON.stringify(todoItems));
-        // render cards
         renderTodoItems(todoItems);
     });
 } else {
     todoItems = JSON.parse(localStorage.getItem("todoItems"));
-    statusInput.value = todoItems.status;
-    priorInput.value = todoItems.priority;
     renderTodoItems(todoItems);
-    
 }
 
 function renderTodoItems(todoItems) {
@@ -61,23 +52,22 @@ function renderTodoItems(todoItems) {
 }
 
 function renderCard(todoItem, parent) {
-    
     const cardTemplate = `
             <div class="card">
                 <div class="card__container">
                     <h1 class="card__title">${todoItem.title}</h1>
                     <div class="card__priority">
                         <select class="card__priority-select">
-                        <option value="1">Low</option>
-                        <option value="2">Medium</option>
-                        <option value="3">High</option>
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
                         </select>
                     </div>
                     <div class="card__status">
                         <select class="card__status-select">
-                        <option value="1">Todo</option>
-                        <option value="2">In progress</option>
-                        <option value="3">Done</option>
+                        <option>Todo</option>
+                        <option>In progress</option>
+                        <option>Done</option>
                         </select>
                     </div>
                 </div>
@@ -89,10 +79,47 @@ function renderCard(todoItem, parent) {
             </div>
     `;
 
-
-    
     parent.innerHTML += cardTemplate;
-    
-    cardStatus.value = todoItem.status;
-    cardPriority.value = todoItem.priority;
 }
+const cardPriority = document.querySelectorAll(`.card__priority-select`);
+const cardStatus = document.querySelectorAll(`.card__status-select`);
+function changeClass() {
+    for (let i = 0; i < Object.keys(todoItems).length; i++) {
+        cardStatus[i].options.selectedIndex = todoItems[i].status;
+        cardPriority[i].options.selectedIndex = todoItems[i].priority;
+    }
+}
+changeClass();
+
+const parent = document.querySelectorAll(`.card`);
+
+const btnDiv = document.querySelectorAll(".controls");
+
+function btnFunction() {
+    for (let i = 0; i < Object.keys(todoItems).length; i++) {
+        parent[i].addEventListener("click", (e) => {
+            console.log(e.target.className);
+
+            if (e.target.className == `controls__delete`) {
+                console.log(`deleted`);
+                parent[i].remove();
+                todoItems.splice(i, 1);
+                console.log(todoItems[i]);
+                localStorage.removeItem(todoItems);
+                localStorage.setItem("todoItems", JSON.stringify(todoItems));
+            }
+
+            if (e.target.className == `controls__edit`) {
+                console.log(`edit`);
+                localStorage.removeItem(todoItems);
+
+                todoItems[i].status = cardStatus[i].options.selectedIndex;
+                todoItems[i].priority = cardPriority[i].options.selectedIndex;
+
+                localStorage.setItem("todoItems", JSON.stringify(todoItems));
+            }
+        });
+    }
+}
+
+btnFunction();
