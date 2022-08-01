@@ -13,12 +13,11 @@ const cardContainer = document.querySelector(`.card__container`);
 const addBtn = document.querySelector(`.form__button`);
 let newObj;
 addBtn.onclick = (e) => {
-    if (titleInput.value == ``) {
-        alert(`Заполните поле Title`);
+    
+    if (titleInput.value === ``) {
         return;
     }
-    if (descInput.value == ``) {
-        alert(`Заполните поле Description`);
+    if (descInput.value === ``) {
         return;
     }
     newObj = {

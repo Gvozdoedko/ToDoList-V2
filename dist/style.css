@@ -43,6 +43,12 @@
   font-size: 12px;
   color: #e0e0e0;
 }
+.form__input-title:invalid {
+  border-bottom: 2px solid red;
+}
+.form__input-title:valid {
+  border-bottom: 1px solid green;
+}
 .form__input-desc {
   font-family: sans-serif;
   letter-spacing: 1px;
@@ -62,6 +68,12 @@
   top: -18px;
   font-size: 12px;
   color: #e0e0e0;
+}
+.form__input-desc:invalid {
+  border-bottom: 2px solid red;
+}
+.form__input-desc:valid {
+  border-bottom: 1px solid green;
 }
 .form__button {
   font-family: sans-serif;
