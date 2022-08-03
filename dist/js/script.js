@@ -12,14 +12,7 @@ const cardContainer = document.querySelector(`.card__container`);
 
 const addBtn = document.querySelector(`.form__button`);
 let newObj;
-addBtn.onclick = (e) => {
-    
-    if (titleInput.value === ``) {
-        return;
-    }
-    if (descInput.value === ``) {
-        return;
-    }
+addBtn.onclick = () => {
     newObj = {
         title: titleInput.value,
         description: descInput.value,
